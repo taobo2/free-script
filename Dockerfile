@@ -1,8 +1,14 @@
 FROM centos:7
 
-COPY config.json start.sh buildss.sh /root/
+ARG mode_arg='server'
 
-RUN yum update -y && chmod +x /root/start.sh && chmod +x /root/buildss.sh && /root/buildss.sh
+ENV mode=${mode_arg} scripthome='/root'
+
+COPY scripts/ ${scripthome}
+
+RUN yum update -y && chmod +x ${scripthome}/start.sh \
+&& chmod +x ${scripthome}/*.sh && ${scripthome}/buildss.sh \
+&& [ "${mode}" = 'proxy' ] && ${scripthome}/buildproxy.sh
 
 #ENTRYPOINT ["/root/start.sh"]
 
