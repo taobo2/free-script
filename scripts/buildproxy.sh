@@ -1,12 +1,9 @@
 #!/bin/bash
-yum install git gcc tinyproxy -y
+yum install git gcc texinfo  -y
 
-cd ${scripthome}
-git clone https://github.com/rofl0r/proxychains-ng.git
-cd proxychains-ng
-./configure --prefix=/usr --sysconfdir=/etc
-make
-make install
-cd ${scripthome}
+cd ${projecthome}
+polipo="https://github.com/jech/polipo.git"
+git clone $polipo && cd polipo && make all && make install
+cd ${projecthome}
 
 

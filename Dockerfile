@@ -2,18 +2,18 @@ FROM centos:7
 
 ARG mode='server'
 
-ENV role=${mode} scripthome='/root'
+ENV role=${mode} projecthome='/root'
 
-COPY scripts/ ${scripthome}
+COPY scripts/ ${projecthome}
 
-RUN yum update -y && chmod +x ${scripthome}/start.sh \
-&& for f in ${scripthome}/conf.d.example/*; \
-        do cp -n $f ${scripthome}/conf.d/$(basename $f); \
+RUN yum update -y && chmod +x ${projecthome}/start.sh \
+&& for f in ${projecthome}/conf.d.example/*; \
+        do cp -n $f ${projecthome}/conf.d/$(basename $f); \
    done \ 
-&& chmod +x ${scripthome}/*.sh && ${scripthome}/buildss.sh \
-&& [ "${mode}" = 'proxy' ] && ${scripthome}/buildproxy.sh
+&& chmod +x ${projecthome}/*.sh && ${projecthome}/buildss.sh \
+&& [ "${mode}" = 'proxy' ] && ${projecthome}/buildproxy.sh
 
-#ENTRYPOINT ["/root/start.sh"]
+ENTRYPOINT ["/root/start.sh"]
 
 
 
