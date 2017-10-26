@@ -2,6 +2,8 @@ FROM centos:7
 
 ARG mode='server'
 
+ARG pacserver
+
 ENV role=${mode} projecthome='/root'
 
 COPY scripts/ ${projecthome}
