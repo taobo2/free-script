@@ -11,7 +11,8 @@ RUN yum update -y && chmod +x ${projecthome}/start.sh \
         do cp -n $f ${projecthome}/conf.d/$(basename $f); \
    done \ 
 && chmod +x ${projecthome}/*.sh && ${projecthome}/buildss.sh \
-&& [ "${mode}" = 'proxy' ] && ${projecthome}/buildproxy.sh
+&& [ "${mode}" = 'proxy' ] && ${projecthome}/buildproxy.sh \
+&& ${projecthome}/buildpac.sh
 
 ENTRYPOINT ["/root/start.sh"]
 
